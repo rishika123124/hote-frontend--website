@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events & Meetings - The Azure Pearl</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root{--primary:#1a4d5e;--secondary:#d4a574;--accent:#89b0ae;--dark:#0d1b2a;--cream:#faf8f5;--shadow:rgba(26,77,94,0.1);--shadow-lg:rgba(26,77,94,0.2)}*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Montserrat',sans-serif;color:var(--dark);background:var(--cream);line-height:1.6}h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600}.header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(250,248,245,0.98);backdrop-filter:blur(10px);box-shadow:0 4px 20px var(--shadow)}.header-content{max-width:1400px;margin:0 auto;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center}.logo{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--primary);text-decoration:none}.hero{margin-top:80px;height:70vh;background:linear-gradient(135deg,rgba(26,77,94,0.9) 0%,rgba(137,176,174,0.85) 100%),url('https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=1920&q=80');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center}.hero-content{text-align:center;color:white;padding:0 2rem}.hero-icon{font-size:5rem;margin-bottom:1rem;animation:rotate 4s linear infinite}.hero-content h1{font-size:4.5rem;margin-bottom:1rem;text-shadow:2px 4px 10px rgba(0,0,0,0.3)}.hero-content p{font-size:1.3rem;letter-spacing:2px}.section{max-width:1400px;margin:0 auto;padding:6rem 2rem}.intro{text-align:center;max-width:900px;margin:0 auto 5rem}.intro h2{font-size:3rem;color:var(--primary);margin-bottom:1.5rem}.intro p{font-size:1.15rem;line-height:1.8;opacity:0.9}.venues-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:3rem;margin-bottom:5rem}.venue-card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 8px 30px var(--shadow);transition:all 0.4s ease}.venue-card:hover{transform:translateY(-10px);box-shadow:0 15px 50px var(--shadow-lg)}.venue-image{height:280px;background-size:cover;background-position:center}.venue-content{padding:2.5rem}.venue-content h3{font-size:2rem;color:var(--primary);margin-bottom:1rem}.capacity{background:var(--cream);padding:0.5rem 1rem;border-radius:20px;display:inline-block;margin-bottom:1rem;font-weight:500;font-size:0.9rem}.venue-features{list-style:none;margin:1.5rem 0}.venue-features li{padding:0.6rem 0 0.6rem 2rem;position:relative}.venue-features li::before{content:'✓';position:absolute;left:0;color:var(--secondary);font-weight:bold}.features{background:var(--primary);color:white;padding:5rem 3rem;border-radius:20px;margin:5rem 0}.features h2{text-align:center;font-size:3rem;color:var(--secondary);margin-bottom:3rem}.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2.5rem}.feature-card{background:rgba(255,255,255,0.1);padding:2.5rem;border-radius:15px;text-align:center;backdrop-filter:blur(10px)}.feature-icon{font-size:3rem;margin-bottom:1rem}.feature-card h3{font-size:1.6rem;color:var(--secondary);margin-bottom:1rem}.pricing{background:white;padding:4rem;border-radius:20px;box-shadow:0 8px 30px var(--shadow)}.pricing h2{text-align:center;font-size:3rem;color:var(--primary);margin-bottom:3rem}.pricing-table{display:grid;gap:1rem}.pricing-row{display:grid;grid-template-columns:2fr 1fr 1fr;padding:1.5rem 2rem;border-bottom:1px solid rgba(26,77,94,0.1);align-items:center}.pricing-row.header{background:var(--primary);color:white;font-weight:600;border-radius:10px}.pricing-row:last-child{border-bottom:none}.cta{background:linear-gradient(135deg,var(--secondary) 0%,var(--primary) 100%);color:white;padding:5rem 2rem;text-align:center;border-radius:20px;margin-top:5rem}.cta h2{font-size:3rem;margin-bottom:1.5rem}.cta p{font-size:1.2rem;margin-bottom:2rem}.btn-contact{background:white;color:var(--primary);padding:1.2rem 3rem;border-radius:50px;text-decoration:none;font-weight:600;display:inline-block;transition:all 0.3s ease}.btn-contact:hover{transform:translateY(-3px);box-shadow:0 6px 25px rgba(0,0,0,0.3)}.footer{background:var(--dark);color:white;padding:3rem 2rem;text-align:center;margin-top:6rem}@keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@media (max-width:768px){.hero-content h1{font-size:3rem}.venues-grid{grid-template-columns:1fr}.pricing-row{grid-template-columns:1fr;text-align:center}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="hotel-website.html" class="logo">The Azure Pearl</a>
+            <a href="services.html" style="color:var(--primary);text-decoration:none;font-weight:500">← All Services</a>
+        </div>
+    </header>
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-icon">🎪</div>
+            <h1>Events & Meetings</h1>
+            <p>WHERE VISION MEETS EXECUTION</p>
+        </div>
+    </div>
+    <section class="section">
+        <div class="intro">
+            <h2>Professional Event Spaces</h2>
+            <p>Host memorable events in our state-of-the-art venues. From intimate board meetings to grand conferences, our flexible spaces and expert team ensure every detail exceeds expectations.</p>
+        </div>
+        <div class="venues-grid">
+            <div class="venue-card">
+                <div class="venue-image" style="background-image:url('https://images.unsplash.com/photo-1519167758481-83f29da8c43f?w=800&q=80')"></div>
+                <div class="venue-content">
+                    <h3>Grand Ballroom</h3>
+                    <span class="capacity">Up to 400 Guests</span>
+                    <p style="margin:1rem 0;opacity:0.85">Our signature venue featuring 5,000 sq ft of elegant space with 20-foot ceilings, crystal chandeliers, and built-in stage.</p>
+                    <ul class="venue-features">
+                        <li>Professional AV system</li>
+                        <li>Customizable lighting</li>
+                        <li>Dedicated prep kitchen</li>
+                        <li>Private entrance</li>
+                        <li>Flexible seating configurations</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="venue-card">
+                <div class="venue-image" style="background-image:url('https://images.unsplash.com/photo-1431540015161-0bf868a2d407?w=800&q=80')"></div>
+                <div class="venue-content">
+                    <h3>Executive Boardroom</h3>
+                    <span class="capacity">Up to 20 Guests</span>
+                    <p style="margin:1rem 0;opacity:0.85">Sophisticated boardroom with mahogany table, executive chairs, and cutting-edge presentation technology.</p>
+                    <ul class="venue-features">
+                        <li>Video conferencing system</li>
+                        <li>85" interactive display</li>
+                        <li>High-speed WiFi</li>
+                        <li>Private restroom</li>
+                        <li>Refreshment station</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="venue-card">
+                <div class="venue-image" style="background-image:url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80')"></div>
+                <div class="venue-content">
+                    <h3>Conference Room A</h3>
+                    <span class="capacity">Up to 100 Guests</span>
+                    <p style="margin:1rem 0;opacity:0.85">Versatile mid-sized space perfect for seminars, workshops, and corporate training sessions.</p>
+                    <ul class="venue-features">
+                        <li>Projector & screen</li>
+                        <li>Sound system</li>
+                        <li>Natural lighting</li>
+                        <li>Breakout area</li>
+                        <li>Whiteboard & flip charts</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="venue-card">
+                <div class="venue-image" style="background-image:url('https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&q=80')"></div>
+                <div class="venue-content">
+                    <h3>Rooftop Terrace</h3>
+                    <span class="capacity">Up to 150 Guests</span>
+                    <p style="margin:1rem 0;opacity:0.85">Stunning outdoor venue with panoramic city views, ideal for cocktail receptions and networking events.</p>
+                    <ul class="venue-features">
+                        <li>Covered & open areas</li>
+                        <li>Bar setup</li>
+                        <li>Lounge furniture</li>
+                        <li>Ambient lighting</li>
+                        <li>Climate-controlled option</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="features">
+        <h2>Event Services & Amenities</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎥</div>
+                <h3>AV Technology</h3>
+                <p>State-of-the-art audiovisual equipment, video conferencing, and live streaming capabilities</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🍽️</div>
+                <h3>Catering</h3>
+                <p>Custom menus from breakfast to banquets, with dietary accommodation</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3>Event Coordination</h3>
+                <p>Dedicated planners to manage every detail from setup to breakdown</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>High-Speed WiFi</h3>
+                <p>Complimentary ultra-fast internet throughout all meeting spaces</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Custom Setup</h3>
+                <p>Flexible configurations: theater, classroom, U-shape, banquet, cocktail</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏨</div>
+                <h3>Room Blocks</h3>
+                <p>Discounted room rates for event attendees with group booking</p>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="pricing">
+            <h2>Event Pricing</h2>
+            <div class="pricing-table">
+                <div class="pricing-row header">
+                    <div>Venue</div>
+                    <div>Half Day (4hrs)</div>
+                    <div>Full Day (8hrs)</div>
+                </div>
+                <div class="pricing-row">
+                    <div><strong>Grand Ballroom</strong></div>
+                    <div>$1,500</div>
+                    <div>$2,500</div>
+                </div>
+                <div class="pricing-row">
+                    <div><strong>Executive Boardroom</strong></div>
+                    <div>$300</div>
+                    <div>$500</div>
+                </div>
+                <div class="pricing-row">
+                    <div><strong>Conference Room A</strong></div>
+                    <div>$600</div>
+                    <div>$900</div>
+                </div>
+                <div class="pricing-row">
+                    <div><strong>Rooftop Terrace</strong></div>
+                    <div>$800</div>
+                    <div>$1,200</div>
+                </div>
+            </div>
+            <p style="text-align:center;margin-top:2rem;opacity:0.8">*Prices include AV equipment, WiFi, setup/breakdown, and on-site coordinator</p>
+        </div>
+    </section>
+    <div class="cta">
+        <h2>Plan Your Event</h2>
+        <p>Contact our events team for customized packages and venue tours</p>
+        <a href="hotel-website.html#contact" class="btn-contact">Request Proposal</a>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 The Azure Pearl. All rights reserved.</p>
+    </footer>
+</body>
+</html>
