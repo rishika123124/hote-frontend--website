@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24/7 Room Service - The Azure Pearl</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a4d5e;
+            --secondary: #d4a574;
+            --accent: #89b0ae;
+            --dark: #0d1b2a;
+            --light: #f8f9fa;
+            --cream: #faf8f5;
+            --shadow: rgba(26, 77, 94, 0.1);
+            --shadow-lg: rgba(26, 77, 94, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            background: var(--cream);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(250, 248, 245, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(26, 77, 94, 0.1);
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .hero {
+            margin-top: 80px;
+            height: 70vh;
+            background: linear-gradient(135deg, rgba(26, 77, 94, 0.9) 0%, rgba(137, 176, 174, 0.8) 100%),
+                        url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 10;
+            padding: 0 2rem;
+        }
+
+        .hero-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+        }
+
+        .section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .intro {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 5rem;
+        }
+
+        .intro h2 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .intro p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .menu-category {
+            margin-bottom: 5rem;
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .category-subtitle {
+            color: var(--dark);
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 35px var(--shadow-lg);
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .menu-item h3 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            flex: 1;
+        }
+
+        .menu-price {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            font-weight: 700;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .menu-description {
+            color: var(--dark);
+            opacity: 0.85;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .menu-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: var(--cream);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--primary);
+        }
+
+        .tag.special {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .hours-section {
+            background: var(--primary);
+            color: white;
+            padding: 5rem 2rem;
+            border-radius: 20px;
+            margin: 5rem 0;
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hours-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hours-card h3 {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .hours-card p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .how-to-order {
+            background: white;
+            padding: 4rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 30px var(--shadow);
+        }
+
+        .order-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .feature {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px var(--shadow);
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature h3 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .cta {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+            border-radius: 20px;
+            margin-top: 5rem;
+        }
+
+        .cta h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-order {
+            background: white;
+            color: var(--primary);
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-order:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 6rem;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 3rem; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .how-to-order { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="hotel-website.html" class="logo">The Azure Pearl</a>
+            <a href="services.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">← All Services</a>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-icon">🍽️</div>
+            <h1>24/7 Room Service</h1>
+            <p>CULINARY EXCELLENCE AT YOUR DOORSTEP</p>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="intro">
+            <h2>Exceptional Dining, Anytime</h2>
+            <p>
+                Experience the luxury of having gourmet cuisine delivered directly to your room, any time of day or night. 
+                Our dedicated culinary team crafts each dish with care, using only the finest ingredients to create 
+                memorable dining experiences in the comfort and privacy of your suite.
+            </p>
+        </div>
+
+        <!-- Breakfast Menu -->
+        <div class="menu-category">
+            <div class="category-header">
+                <div class="category-icon">🍳</div>
+                <h2 class="category-title">Breakfast</h2>
+                <p class="category-subtitle">6:00 AM - 11:00 AM</p>
+            </div>
+
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Classic American Breakfast</h3>
+                        <span class="menu-price">$24</span>
+                    </div>
+                    <p class="menu-description">
+                        Two farm-fresh eggs any style, crispy bacon or sausage, hash browns, toast, 
+                        fresh fruit, orange juice, and your choice of coffee or tea.
+                    </p>
+                    <div class="menu-tags">
+                        <span class="tag">Popular</span>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Eggs Benedict</h3>
+                        <span class="menu-price">$22</span>
+                    </div>
+                    <p class="menu-description">
+                        Poached eggs on English muffin with Canadian bacon, hollandaise sauce, 
+                        served with roasted potatoes and mixed greens.
+                    </p>
+                    <div class="menu-tags">
+                        <span class="tag special">Chef's Special</span>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Continental Breakfast</h3>
+                        <span class="menu-price">$18</span>
+                    </div>
+                    <p class="menu-description">
+                        Assorted pastries, fresh fruit bowl, yogurt, granola, orange juice, 
+                        and premium coffee or tea selection.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Healthy Start</h3>
+                        <span class="menu-price">$20</span>
+                    </div>
+                    <p class="menu-description">
+                        Egg white omelet with spinach and tomatoes, whole grain toast, 
+                        fresh fruit smoothie, and herbal tea.
+                    </p>
+                    <div class="menu-tags">
+                        <span class="tag">Healthy</span>
+                        <span class="tag">Low-Cal</span>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Pancake Stack</h3>
+                        <span class="menu-price">$16</span>
+                    </div>
+                    <p class="menu-description">
+                        Fluffy buttermilk pancakes with maple syrup, butter, fresh berries, 
+                        and whipped cream. Add bacon or sausage for $5.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Avocado Toast</h3>
+                        <span class="menu-price">$19</span>
+                    </div>
+                    <p class="menu-description">
+                        Smashed avocado on artisan sourdough with cherry tomatoes, feta cheese, 
+                        poached eggs, and microgreens.
+                    </p>
+                    <div class="menu-tags">
+                        <span class="tag">Vegetarian</span>
+                        <span class="tag">Instagram-Worthy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lunch & Dinner Menu -->
+        <div class="menu-category">
+            <div class="category-header">
+                <div class="category-icon">🍔</div>
+                <h2 class="category-title">All-Day Dining</h2>
+                <p class="category-subtitle">11:00 AM - 11:00 PM</p>
+            </div>
+
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Gourmet Burger</h3>
+                        <span class="menu-price">$26</span>
+                    </div>
+                    <p class="menu-description">
+                        Prime beef patty, aged cheddar, caramelized onions, lettuce, tomato, 
+                        special sauce on brioche bun with truffle fries.
+                    </p>
+                    <div class="menu-tags">
+                        <span class="tag special">Signature Dish</span>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Grilled Salmon</h3>
+                        <span class="menu-price">$34</span>
+                    </div>
+                    <p class="menu-description">
+                        Atlantic salmon with lemon butter sauce, roasted vegetables, 
+                        wild rice pilaf, and seasonal greens.
+                    </p>
+                    <div class="menu-tags">
+                        <span class="tag">Healthy</span>
+                        <span class="tag">Omega-3</span>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Caesar Salad</h3>
+                        <span class="menu-price">$16</span>
+                    </div>
+                    <p class="menu-description">
+                        Crisp romaine, house-made dressing, parmesan, croutons. 
+                        Add grilled chicken $8, shrimp $10, or salmon $12.
+                    </p>
+                    <div class="menu-tags">
+                        <span class="tag">Classic</span>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Ribeye Steak</h3>
+                        <span class="menu-price">$48</span>
+                    </div>
+                    <p class="menu-description">
+                        12oz USDA Prime ribeye, garlic mashed potatoes, grilled asparagus, 
+                        red wine reduction. Cooked to your preference.
+                    </p>
+                    <div class="menu-tags">
+                        <span class="tag special">Premium</span>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Pasta Primavera</h3>
+                        <span class="menu-price">$22</span>
+                    </div>
+                    <p class="menu-description">
+                        Fresh fettuccine with seasonal vegetables, garlic, olive oil, 
+                        parmesan cheese, and fresh basil.
+                    </p>
+                    <div class="menu-tags">
+                        <span class="tag">Vegetarian</span>
+                        <span class="tag">Fresh</span>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Club Sandwich</h3>
+                        <span class="menu-price">$20</span>
+                    </div>
+                    <p class="menu-description">
+                        Triple-decker with turkey, bacon, lettuce, tomato, mayo on toasted bread, 
+                        served with coleslaw and fries.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desserts & Beverages -->
+        <div class="menu-category">
+            <div class="category-header">
+                <div class="category-icon">🍰</div>
+                <h2 class="category-title">Desserts & Drinks</h2>
+                <p class="category-subtitle">Available 24/7</p>
+            </div>
+
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Chocolate Lava Cake</h3>
+                        <span class="menu-price">$12</span>
+                    </div>
+                    <p class="menu-description">
+                        Warm chocolate cake with molten center, vanilla ice cream, 
+                        fresh berries, and chocolate drizzle.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>New York Cheesecake</h3>
+                        <span class="menu-price">$10</span>
+                    </div>
+                    <p class="menu-description">
+                        Classic creamy cheesecake with graham cracker crust, 
+                        choice of strawberry or caramel sauce.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Fresh Fruit Platter</h3>
+                        <span class="menu-price">$14</span>
+                    </div>
+                    <p class="menu-description">
+                        Seasonal fruits beautifully arranged with honey yogurt dip 
+                        and mint garnish. Perfect for sharing.
+                    </p>
+                    <div class="menu-tags">
+                        <span class="tag">Healthy</span>
+                        <span class="tag">Refreshing</span>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Wine Selection</h3>
+                        <span class="menu-price">$12-$95</span>
+                    </div>
+                    <p class="menu-description">
+                        Curated wine list featuring premium reds, whites, rosés, and champagnes. 
+                        Ask for our sommelier's recommendations.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Specialty Coffee</h3>
+                        <span class="menu-price">$6-$9</span>
+                    </div>
+                    <p class="menu-description">
+                        Espresso, cappuccino, latte, macchiato, or cold brew. 
+                        Made with premium Arabica beans.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-header">
+                        <h3>Fresh Juices</h3>
+                        <span class="menu-price">$8</span>
+                    </div>
+                    <p class="menu-description">
+                        Orange, grapefruit, apple, or carrot. Freshly squeezed daily. 
+                        Try our signature green detox juice!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="hours-section">
+        <h2 style="text-align: center; font-size: 3rem; margin-bottom: 3rem; color: var(--secondary);">Service Hours</h2>
+        <div class="hours-grid">
+            <div class="hours-card">
+                <h3>Breakfast</h3>
+                <p>6:00 AM - 11:00 AM</p>
+            </div>
+            <div class="hours-card">
+                <h3>Lunch</h3>
+                <p>12:00 PM - 3:00 PM</p>
+            </div>
+            <div class="hours-card">
+                <h3>Dinner</h3>
+                <p>6:00 PM - 11:00 PM</p>
+            </div>
+            <div class="hours-card">
+                <h3>Late Night</h3>
+                <p>11:00 PM - 6:00 AM</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="how-to-order">
+            <h2 style="text-align: center; font-size: 3rem; color: var(--primary); margin-bottom: 1rem;">How to Order</h2>
+            <p style="text-align: center; font-size: 1.1rem; opacity: 0.8; margin-bottom: 3rem;">
+                Ordering is simple and convenient with multiple options available
+            </p>
+
+            <div class="order-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Choose Your Method</h3>
+                    <p>Phone, mobile app, or in-room tablet</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Browse Menu</h3>
+                    <p>Select from our extensive dining options</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Place Order</h3>
+                    <p>Confirm your selections and preferences</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Enjoy</h3>
+                    <p>Delivery in 30-45 minutes</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Express Service</h3>
+                <p>Select items available in 20 minutes for quick meals on the go</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🥗</div>
+                <h3>Dietary Accommodations</h3>
+                <p>Vegetarian, vegan, gluten-free, and allergen-friendly options</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎂</div>
+                <h3>Special Occasions</h3>
+                <p>Celebration packages with champagne, flowers, and desserts</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">👶</div>
+                <h3>Kids Menu</h3>
+                <p>Child-friendly meals designed for young palates</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="cta">
+        <h2>Ready to Order?</h2>
+        <p>Dial 0 from your room phone or use the mobile app to place your order</p>
+        <a href="tel:0" class="btn-order">Call Room Service</a>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 The Azure Pearl. All rights reserved.</p>
+    </footer>
+</body>
+</html>
