@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concierge Services - The Azure Pearl</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a4d5e;
+            --secondary: #d4a574;
+            --accent: #89b0ae;
+            --dark: #0d1b2a;
+            --cream: #faf8f5;
+            --shadow: rgba(26, 77, 94, 0.1);
+            --shadow-lg: rgba(26, 77, 94, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            background: var(--cream);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(250, 248, 245, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .hero {
+            margin-top: 80px;
+            height: 70vh;
+            background: linear-gradient(135deg, rgba(26, 77, 94, 0.9) 0%, rgba(137, 176, 174, 0.8) 100%),
+                        url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            padding: 0 2rem;
+        }
+
+        .hero-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+        }
+
+        .section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .intro {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 5rem;
+        }
+
+        .intro h2 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .intro p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-bottom: 5rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px var(--shadow-lg);
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            line-height: 1.8;
+            opacity: 0.85;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .service-list li {
+            padding: 0.7rem 0;
+            padding-left: 2rem;
+            position: relative;
+            border-bottom: 1px solid rgba(26, 77, 94, 0.1);
+        }
+
+        .service-list li:last-child {
+            border-bottom: none;
+        }
+
+        .service-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .featured-services {
+            background: var(--primary);
+            color: white;
+            padding: 5rem 3rem;
+            border-radius: 20px;
+            margin: 5rem 0;
+        }
+
+        .featured-title {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 3rem;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .featured-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .featured-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .featured-item h4 {
+            font-size: 1.6rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-concierge {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            padding: 5rem 3rem;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .contact-concierge h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-method {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .contact-method-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-method h4 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonials {
+            margin-top: 5rem;
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px var(--shadow);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            opacity: 0.85;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .author-info h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .author-info p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 6rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 3rem; }
+            .services-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="hotel-website.html" class="logo">The Azure Pearl</a>
+            <a href="services.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">← All Services</a>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-icon">🎩</div>
+            <h1>Concierge Services</h1>
+            <p>YOUR PERSONAL ASSISTANT • AVAILABLE 24/7</p>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="intro">
+            <h2>Dedicated to Your Every Need</h2>
+            <p>
+                Our expert concierge team is committed to making your stay seamless and extraordinary. With insider 
+                knowledge of the city and connections throughout the region, we transform requests into reality and 
+                ensure every detail of your visit exceeds expectations.
+            </p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <span class="card-icon">🍽️</span>
+                <h3>Dining Reservations</h3>
+                <p>
+                    Secure tables at the city's most sought-after restaurants, from Michelin-starred establishments 
+                    to hidden local gems.
+                </p>
+                <ul class="service-list">
+                    <li>Priority reservations at premium restaurants</li>
+                    <li>Private dining room arrangements</li>
+                    <li>Chef's table experiences</li>
+                    <li>Special dietary accommodations</li>
+                    <li>Restaurant recommendations based on preferences</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <span class="card-icon">🎭</span>
+                <h3>Entertainment & Events</h3>
+                <p>
+                    Access to shows, concerts, sporting events, and exclusive entertainment experiences throughout 
+                    the city.
+                </p>
+                <ul class="service-list">
+                    <li>Theater and concert tickets</li>
+                    <li>Sports event reservations</li>
+                    <li>Museum and gallery passes</li>
+                    <li>VIP event access</li>
+                    <li>Cultural experience planning</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <span class="card-icon">🚗</span>
+                <h3>Transportation Services</h3>
+                <p>
+                    Comprehensive transportation solutions for business and leisure, ensuring you travel in comfort 
+                    and style.
+                </p>
+                <ul class="service-list">
+                    <li>Luxury car rentals</li>
+                    <li>Private chauffeur services</li>
+                    <li>Yacht and helicopter charters</li>
+                    <li>Guided city tours</li>
+                    <li>Airport transfers</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <span class="card-icon">🛍️</span>
+                <h3>Shopping & Personal Services</h3>
+                <p>
+                    Personal shopping assistance, gift services, and exclusive access to premier boutiques and 
+                    shopping districts.
+                </p>
+                <ul class="service-list">
+                    <li>Personal shopping experiences</li>
+                    <li>Gift purchasing and wrapping</li>
+                    <li>Luxury brand appointments</li>
+                    <li>Fashion consultant recommendations</li>
+                    <li>Delivery coordination</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <span class="card-icon">💼</span>
+                <h3>Business Support</h3>
+                <p>
+                    Professional business services to keep you productive during your stay, from printing to 
+                    administrative assistance.
+                </p>
+                <ul class="service-list">
+                    <li>Printing, copying, and scanning</li>
+                    <li>Courier and postal services</li>
+                    <li>Meeting room reservations</li>
+                    <li>Translation services</li>
+                    <li>Notary and legal assistance referrals</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <span class="card-icon">🎁</span>
+                <h3>Special Occasions</h3>
+                <p>
+                    Create unforgettable moments with customized celebrations, romantic surprises, and milestone 
+                    event coordination.
+                </p>
+                <ul class="service-list">
+                    <li>In-room celebration setups</li>
+                    <li>Flower arrangements and delivery</li>
+                    <li>Champagne and gift packages</li>
+                    <li>Birthday and anniversary planning</li>
+                    <li>Proposal arrangements</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="featured-services">
+        <h2 class="featured-title">Exclusive Experiences</h2>
+        <div class="featured-grid">
+            <div class="featured-item">
+                <h4>🎨 Art Gallery Tours</h4>
+                <p>Private tours of prestigious galleries with expert curators</p>
+            </div>
+            <div class="featured-item">
+                <h4>🍷 Wine Tastings</h4>
+                <p>Exclusive vineyard visits and sommelier-led tastings</p>
+            </div>
+            <div class="featured-item">
+                <h4>⛳ Golf Reservations</h4>
+                <p>Tee times at championship courses with equipment rental</p>
+            </div>
+            <div class="featured-item">
+                <h4>💆 Spa Bookings</h4>
+                <p>Appointments at the city's premier wellness centers</p>
+            </div>
+            <div class="featured-item">
+                <h4>🎓 Educational Tours</h4>
+                <p>University campus tours and academic institution visits</p>
+            </div>
+            <div class="featured-item">
+                <h4>🏛️ Cultural Experiences</h4>
+                <p>Historical site visits with private guides</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="testimonials">
+            <h2>What Our Guests Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <p class="testimonial-text">
+                        "The concierge team secured impossible-to-get reservations at three top restaurants. 
+                        Their local knowledge and connections are truly impressive. They made our anniversary 
+                        trip unforgettable!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MJ</div>
+                        <div class="author-info">
+                            <h4>Michael Johnson</h4>
+                            <p>Los Angeles, CA</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial">
+                    <p class="testimonial-text">
+                        "I was in town for business and the concierge arranged everything from car service to 
+                        meeting rooms. They even found time to book a quick spa appointment between meetings. 
+                        Exceptional service!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SK</div>
+                        <div class="author-info">
+                            <h4>Sarah Kim</h4>
+                            <p>New York, NY</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial">
+                    <p class="testimonial-text">
+                        "They helped plan a surprise proposal that was absolutely perfect. From the rooftop 
+                        setup to the photographer and champagne - every detail was flawless. She said yes!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DM</div>
+                        <div class="author-info">
+                            <h4>David Martinez</h4>
+                            <p>Chicago, IL</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="contact-concierge">
+        <h2>How to Reach Our Concierge</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+            Available 24 hours a day, 7 days a week to assist you
+        </p>
+        
+        <div class="contact-methods">
+            <div class="contact-method">
+                <div class="contact-method-icon">📞</div>
+                <h4>Phone</h4>
+                <p>Dial 9 from room</p>
+                <p>+1 (305) 555-0199</p>
+            </div>
+
+            <div class="contact-method">
+                <div class="contact-method-icon">✉️</div>
+                <h4>Email</h4>
+                <p>concierge@azurepearl.com</p>
+                <p>Response within 1 hour</p>
+            </div>
+
+            <div class="contact-method">
+                <div class="contact-method-icon">💬</div>
+                <h4>Text</h4>
+                <p>SMS: (305) 555-0188</p>
+                <p>WhatsApp available</p>
+            </div>
+
+            <div class="contact-method">
+                <div class="contact-method-icon">🏨</div>
+                <h4>In Person</h4>
+                <p>Concierge Desk</p>
+                <p>Main Lobby</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 The Azure Pearl. All rights reserved.</p>
+    </footer>
+</body>
+</html>
