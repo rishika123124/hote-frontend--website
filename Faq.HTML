@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - The Azure Pearl Hotel</title>
+    <link rel="preconnect"href="https://fonts.googleapis.com">
+    <link rel="preconnect"href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a4d5e;
+            --secondary: #d4a574;
+            --accent: #89b0ae;
+            --dark: #0d1b2a;
+            --light: #f8f9fa;
+            --cream: #faf8f5;
+            --gold: #c9a467;
+            --shadow: rgba(26, 77, 94, 0.1);
+            --shadow-lg: rgba(26, 77, 94, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            background: var(--cream);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(250, 248, 245, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(26, 77, 94, 0.1);
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: var(--secondary);
+        }
+
+        .page-hero {
+            margin-top: 80px;
+            height: 50vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .page-hero h1 {
+            color: white;
+            font-size: 4rem;
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .section-intro {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-intro p {
+            font-size: 1.1rem;
+            color: var(--dark);
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .faq-category {
+            margin-bottom: 3rem;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .faq-item {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px var(--shadow);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 5px 25px var(--shadow-lg);
+            transform: translateY(-3px);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            margin-top: 1.5rem;
+            line-height: 1.8;
+            opacity: 0.85;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .cta-section {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn-book {
+            background: var(--secondary);
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-book:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .faq-question {
+                font-size: 1.1rem;
+            }
+
+            .category-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="hotel-website.html" class="logo">The Azure Pearl</a>
+            <nav class="nav">
+                <a href="Hotel website.HTML#home">Home</a>
+                <a href="Hotel website.HTML#rooms">Rooms</a>
+                <a href="Hotel website.html#amenities">Amenities</a>
+                <a href="Hotel website.html#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-hero">
+        <h1>Frequently Asked Questions</h1>
+    </div>
+
+    <section class="section">
+        <div class="section-intro">
+            <p>Find answers to common questions about The Azure Pearl. If you can't find what you're looking for, please don't hesitate to contact our team.</p>
+        </div>
+
+        <!-- Booking & Reservations -->
+        <div class="faq-category">
+            <h2 class="category-title">Booking & Reservations</h2>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    How can I make a reservation?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    You can make a reservation through our website by clicking the "Book Now" button, calling our reservations team at +1 (305) 555-0199, or emailing reservations@azurepearl.com. Our team is available 24/7 to assist you.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    What is your cancellation policy?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Cancellations made 48 hours or more before your check-in date will receive a full refund. Cancellations made within 48 hours of check-in are subject to a one-night room charge. Special rates and packages may have different policies.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Can I modify my reservation?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Yes, reservations can be modified up to 24 hours before check-in, subject to availability. Please contact our reservations team or use your confirmation number to make changes online.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Do you require a deposit?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    We require a credit card to guarantee your reservation. A deposit equal to one night's room rate will be charged at the time of booking. The remaining balance is due upon check-in.
+                </div>
+            </div>
+        </div>
+
+        <!-- Check-in & Check-out -->
+        <div class="faq-category">
+            <h2 class="category-title">Check-in & Check-out</h2>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    What are your check-in and check-out times?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Check-in is at 3:00 PM and check-out is at 11:00 AM. Early check-in and late check-out may be available upon request, subject to availability and additional charges.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Can I request early check-in or late check-out?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Yes, early check-in and late check-out can be requested. Based on availability, early check-in may be available from 12:00 PM and late check-out until 2:00 PM for an additional fee. Please contact our front desk.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    What do I need to bring for check-in?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Please bring a valid government-issued photo ID and the credit card used for booking. International guests should also have their passport ready.
+                </div>
+            </div>
+        </div>
+
+        <!-- Hotel Amenities -->
+        <div class="faq-category">
+            <h2 class="category-title">Hotel Amenities</h2>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Is WiFi included?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Yes, complimentary high-speed WiFi is available throughout the hotel, including all guest rooms, public areas, and outdoor spaces.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Do you have parking available?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Yes, we offer complimentary valet parking for all guests. Our secure underground parking garage ensures your vehicle is safe during your stay.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    What dining options are available?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    The Azure Pearl features two award-winning restaurants, a rooftop bar, a poolside cafe, and 24-hour room service. We offer everything from fine dining to casual fare.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Is there a fitness center?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Yes, our state-of-the-art fitness center is open 24/7 and features modern equipment, free weights, and personal training services by appointment.
+                </div>
+            </div>
+        </div>
+
+        <!-- Rooms & Services -->
+        <div class="faq-category">
+            <h2 class="category-title">Rooms & Services</h2>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Are pets allowed?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Yes, we are a pet-friendly hotel. We welcome dogs and cats under 25 pounds. A non-refundable pet fee of $75 per stay applies. Please notify us in advance.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Do rooms have mini bars?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Yes, all rooms are equipped with premium mini bars stocked with beverages and snacks. Suites feature enhanced mini bar selections and Nespresso machines.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Can I request extra amenities?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Absolutely! We offer additional amenities including extra pillows, robes, towels, cribs, rollaway beds, and more. Please contact our concierge for special requests.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Is smoking allowed in rooms?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    All guest rooms are non-smoking. We have designated outdoor smoking areas on our terrace and pool deck. A $300 cleaning fee applies if smoking occurs in rooms.
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment & Policies -->
+        <div class="faq-category">
+            <h2 class="category-title">Payment & Policies</h2>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    What payment methods do you accept?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    We accept all major credit cards (Visa, MasterCard, American Express, Discover), debit cards, and cash. Payment is required at check-in.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Are there any additional fees?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Room rates do not include a daily resort fee of $35, which covers WiFi, fitness center access, pool amenities, and morning coffee service. Local taxes apply as per state regulations.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    Do you offer group rates?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Yes, we offer special rates for groups of 10+ rooms. Please contact our group sales department at groups@azurepearl.com for customized packages and pricing.
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Still Have Questions?</h2>
+            <p>Our team is here to help 24/7. Contact us anytime for personalized assistance.</p>
+            <a href="hotel-website.html#contact" class="btn-book">Contact Us</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 The Azure Pearl. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleFaq(element) {
+            // Close all other FAQs
+            const allFaqs = document.querySelectorAll('.faq-item');
+            allFaqs.forEach(faq => {
+                if (faq !== element) {
+                    faq.classList.remove('active');
+                }
+            });
+
+            // Toggle current FAQ
+            element.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
