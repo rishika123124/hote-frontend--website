@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spa & Wellness - The Azure Pearl</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a4d5e;
+            --secondary: #d4a574;
+            --accent: #89b0ae;
+            --dark: #0d1b2a;
+            --cream: #faf8f5;
+            --shadow: rgba(26, 77, 94, 0.1);
+            --shadow-lg: rgba(26, 77, 94, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            background: var(--cream);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(250, 248, 245, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+
+        .hero {
+            margin-top: 80px;
+            height: 70vh;
+            background: linear-gradient(135deg, rgba(137, 176, 174, 0.85) 0%, rgba(26, 77, 94, 0.9) 100%),
+                        url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content { text-align: center; color: white; padding: 0 2rem; }
+        .hero-icon { font-size: 5rem; margin-bottom: 1rem; animation: pulse 3s ease-in-out infinite; }
+        .hero-content h1 { font-size: 4.5rem; margin-bottom: 1rem; text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3); }
+        .hero-content p { font-size: 1.3rem; letter-spacing: 2px; }
+
+        .section { max-width: 1400px; margin: 0 auto; padding: 6rem 2rem; }
+
+        .intro { text-align: center; max-width: 900px; margin: 0 auto 5rem; }
+        .intro h2 { font-size: 3rem; color: var(--primary); margin-bottom: 1.5rem; }
+        .intro p { font-size: 1.15rem; line-height: 1.8; opacity: 0.9; }
+
+        .treatments { margin-bottom: 5rem; }
+        .treatment-category { margin-bottom: 4rem; }
+        .category-title { font-size: 2.5rem; color: var(--secondary); text-align: center; margin-bottom: 3rem; }
+
+        .treatment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 2.5rem; }
+
+        .treatment-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 25px var(--shadow);
+            transition: all 0.4s ease;
+        }
+
+        .treatment-card:hover { transform: translateY(-8px); box-shadow: 0 12px 40px var(--shadow-lg); }
+
+        .treatment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+        }
+
+        .treatment-card h3 { font-size: 1.8rem; color: var(--primary); flex: 1; }
+
+        .treatment-duration {
+            background: var(--cream);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .treatment-description { line-height: 1.8; opacity: 0.85; margin-bottom: 1.5rem; }
+
+        .treatment-benefits {
+            background: var(--cream);
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .treatment-benefits h4 { font-size: 1.1rem; color: var(--primary); margin-bottom: 0.8rem; }
+
+        .treatment-benefits ul { list-style: none; }
+
+        .treatment-benefits li {
+            padding: 0.4rem 0 0.4rem 1.5rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .treatment-benefits li::before { content: '✓'; position: absolute; left: 0; color: var(--secondary); font-weight: bold; }
+
+        .treatment-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(26, 77, 94, 0.1);
+        }
+
+        .treatment-price {
+            font-size: 2rem;
+            color: var(--secondary);
+            font-weight: 700;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .btn-book {
+            background: var(--primary);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-book:hover { background: var(--secondary); transform: scale(1.05); }
+
+        .facilities {
+            background: var(--primary);
+            color: white;
+            padding: 5rem 3rem;
+            border-radius: 20px;
+            margin: 5rem 0;
+        }
+
+        .facilities h2 { text-align: center; font-size: 3rem; color: var(--secondary); margin-bottom: 3rem; }
+
+        .facility-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2.5rem; }
+
+        .facility-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .facility-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .facility-item h3 { font-size: 1.6rem; color: var(--secondary); margin-bottom: 1rem; }
+
+        .packages {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            padding: 5rem 3rem;
+            border-radius: 20px;
+        }
+
+        .packages h2 { text-align: center; font-size: 3rem; margin-bottom: 3rem; }
+
+        .package-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; }
+
+        .package-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 3rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .package-card:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-5px); }
+
+        .package-badge {
+            background: white;
+            color: var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .package-card h3 { font-size: 2.2rem; margin-bottom: 1rem; }
+        .package-card .price { font-size: 3rem; margin-bottom: 1.5rem; }
+        .package-card ul { list-style: none; margin-bottom: 2rem; }
+        .package-card li { padding: 0.8rem 0; padding-left: 2rem; position: relative; }
+        .package-card li::before { content: '✓'; position: absolute; left: 0; font-weight: bold; }
+
+        .footer { background: var(--dark); color: white; padding: 3rem 2rem; text-align: center; margin-top: 6rem; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 3rem; }
+            .treatment-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="hotel-website.html" class="logo">The Azure Pearl</a>
+            <a href="services.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">← All Services</a>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-icon">💆</div>
+            <h1>Spa & Wellness</h1>
+            <p>REJUVENATE • RESTORE • RENEW</p>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="intro">
+            <h2>Your Sanctuary of Serenity</h2>
+            <p>
+                Step into our world-class spa and leave the stresses of daily life behind. Our expert therapists 
+                combine ancient healing traditions with modern wellness techniques to create transformative experiences 
+                tailored to your individual needs.
+            </p>
+        </div>
+
+        <div class="treatments">
+            <!-- Massage Treatments -->
+            <div class="treatment-category">
+                <h2 class="category-title">Signature Massages</h2>
+                <div class="treatment-grid">
+                    <div class="treatment-card">
+                        <div class="treatment-header">
+                            <h3>Azure Deep Tissue</h3>
+                            <span class="treatment-duration">90 min</span>
+                        </div>
+                        <p class="treatment-description">
+                            Intensive therapeutic massage targeting deep muscle layers to relieve chronic tension 
+                            and knots. Perfect for athletes or those with persistent muscle pain.
+                        </p>
+                        <div class="treatment-benefits">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Releases chronic muscle tension</li>
+                                <li>Improves circulation</li>
+                                <li>Reduces inflammation</li>
+                                <li>Enhances flexibility</li>
+                            </ul>
+                        </div>
+                        <div class="treatment-footer">
+                            <span class="treatment-price">$220</span>
+                            <a href="#book" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+
+                    <div class="treatment-card">
+                        <div class="treatment-header">
+                            <h3>Swedish Relaxation</h3>
+                            <span class="treatment-duration">60 min</span>
+                        </div>
+                        <p class="treatment-description">
+                            Classic full-body massage with gentle, flowing strokes to promote deep relaxation 
+                            and stress relief. An essential wellness experience.
+                        </p>
+                        <div class="treatment-benefits">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Reduces stress and anxiety</li>
+                                <li>Improves sleep quality</li>
+                                <li>Boosts immune system</li>
+                                <li>Promotes overall wellbeing</li>
+                            </ul>
+                        </div>
+                        <div class="treatment-footer">
+                            <span class="treatment-price">$150</span>
+                            <a href="#book" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+
+                    <div class="treatment-card">
+                        <div class="treatment-header">
+                            <h3>Hot Stone Therapy</h3>
+                            <span class="treatment-duration">90 min</span>
+                        </div>
+                        <p class="treatment-description">
+                            Heated volcanic stones combined with Swedish massage techniques melt away tension 
+                            and restore balance to body and mind.
+                        </p>
+                        <div class="treatment-benefits">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Deep muscle relaxation</li>
+                                <li>Enhanced circulation</li>
+                                <li>Pain relief</li>
+                                <li>Calms nervous system</li>
+                            </ul>
+                        </div>
+                        <div class="treatment-footer">
+                            <span class="treatment-price">$240</span>
+                            <a href="#book" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+
+                    <div class="treatment-card">
+                        <div class="treatment-header">
+                            <h3>Aromatherapy Bliss</h3>
+                            <span class="treatment-duration">75 min</span>
+                        </div>
+                        <p class="treatment-description">
+                            Customized massage with essential oils chosen for your needs - energizing, relaxing, 
+                            or balancing. Experience the power of botanical healing.
+                        </p>
+                        <div class="treatment-benefits">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Emotional balance</li>
+                                <li>Stress reduction</li>
+                                <li>Improved mood</li>
+                                <li>Aromatherapeutic healing</li>
+                            </ul>
+                        </div>
+                        <div class="treatment-footer">
+                            <span class="treatment-price">$190</span>
+                            <a href="#book" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Facial Treatments -->
+            <div class="treatment-category">
+                <h2 class="category-title">Luxury Facials</h2>
+                <div class="treatment-grid">
+                    <div class="treatment-card">
+                        <div class="treatment-header">
+                            <h3>Age-Defying Facial</h3>
+                            <span class="treatment-duration">90 min</span>
+                        </div>
+                        <p class="treatment-description">
+                            Advanced anti-aging treatment using cutting-edge skincare technology and premium 
+                            serums to reduce fine lines and restore youthful radiance.
+                        </p>
+                        <div class="treatment-benefits">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Reduces fine lines</li>
+                                <li>Firms and lifts</li>
+                                <li>Brightens complexion</li>
+                                <li>Hydrates deeply</li>
+                            </ul>
+                        </div>
+                        <div class="treatment-footer">
+                            <span class="treatment-price">$210</span>
+                            <a href="#book" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+
+                    <div class="treatment-card">
+                        <div class="treatment-header">
+                            <h3>Deep Cleansing Purifier</h3>
+                            <span class="treatment-duration">60 min</span>
+                        </div>
+                        <p class="treatment-description">
+                            Thorough deep-pore cleansing with steam, extractions, and purifying mask. 
+                            Perfect for congested or problematic skin.
+                        </p>
+                        <div class="treatment-benefits">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Unclogs pores</li>
+                                <li>Removes impurities</li>
+                                <li>Balances oil production</li>
+                                <li>Prevents breakouts</li>
+                            </ul>
+                        </div>
+                        <div class="treatment-footer">
+                            <span class="treatment-price">$160</span>
+                            <a href="#book" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+
+                    <div class="treatment-card">
+                        <div class="treatment-header">
+                            <h3>Hydration Therapy</h3>
+                            <span class="treatment-duration">75 min</span>
+                        </div>
+                        <p class="treatment-description">
+                            Intensive moisture infusion for dehydrated or dry skin. Hyaluronic acid and 
+                            nourishing botanicals restore suppleness and glow.
+                        </p>
+                        <div class="treatment-benefits">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Deep hydration</li>
+                                <li>Plumps skin</li>
+                                <li>Restores radiance</li>
+                                <li>Smooths texture</li>
+                            </ul>
+                        </div>
+                        <div class="treatment-footer">
+                            <span class="treatment-price">$180</span>
+                            <a href="#book" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Body Treatments -->
+            <div class="treatment-category">
+                <h2 class="category-title">Body Therapies</h2>
+                <div class="treatment-grid">
+                    <div class="treatment-card">
+                        <div class="treatment-header">
+                            <h3>Detox Body Wrap</h3>
+                            <span class="treatment-duration">90 min</span>
+                        </div>
+                        <p class="treatment-description">
+                            Full-body application of detoxifying marine algae wrap followed by moisturizing 
+                            massage. Eliminates toxins and nourishes skin.
+                        </p>
+                        <div class="treatment-benefits">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Detoxifies body</li>
+                                <li>Reduces cellulite</li>
+                                <li>Tightens skin</li>
+                                <li>Boosts metabolism</li>
+                            </ul>
+                        </div>
+                        <div class="treatment-footer">
+                            <span class="treatment-price">$200</span>
+                            <a href="#book" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+
+                    <div class="treatment-card">
+                        <div class="treatment-header">
+                            <h3>Salt Glow Scrub</h3>
+                            <span class="treatment-duration">60 min</span>
+                        </div>
+                        <p class="treatment-description">
+                            Invigorating full-body exfoliation with mineral-rich salts removes dead skin 
+                            and reveals silky-smooth, glowing skin.
+                        </p>
+                        <div class="treatment-benefits">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Exfoliates dead skin</li>
+                                <li>Smooths texture</li>
+                                <li>Stimulates circulation</li>
+                                <li>Energizes body</li>
+                            </ul>
+                        </div>
+                        <div class="treatment-footer">
+                            <span class="treatment-price">$140</span>
+                            <a href="#book" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+
+                    <div class="treatment-card">
+                        <div class="treatment-header">
+                            <h3>Hydrotherapy Session</h3>
+                            <span class="treatment-duration">45 min</span>
+                        </div>
+                        <p class="treatment-description">
+                            Therapeutic water treatment in our vitality pool with jets targeting key pressure 
+                            points. Relieves muscle tension and promotes healing.
+                        </p>
+                        <div class="treatment-benefits">
+                            <h4>Benefits:</h4>
+                            <ul>
+                                <li>Relieves muscle pain</li>
+                                <li>Improves circulation</li>
+                                <li>Reduces stress</li>
+                                <li>Enhances flexibility</li>
+                            </ul>
+                        </div>
+                        <div class="treatment-footer">
+                            <span class="treatment-price">$95</span>
+                            <a href="#book" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="facilities">
+        <h2>Wellness Facilities</h2>
+        <div class="facility-grid">
+            <div class="facility-item">
+                <div class="facility-icon">🧖</div>
+                <h3>Finnish Sauna</h3>
+                <p>Traditional dry sauna for detoxification and relaxation</p>
+            </div>
+            <div class="facility-item">
+                <div class="facility-icon">💨</div>
+                <h3>Steam Room</h3>
+                <p>Eucalyptus-infused steam for respiratory health</p>
+            </div>
+            <div class="facility-item">
+                <div class="facility-icon">🏊</div>
+                <h3>Vitality Pool</h3>
+                <p>Hydrotherapy pool with massage jets</p>
+            </div>
+            <div class="facility-item">
+                <div class="facility-icon">🛀</div>
+                <h3>Whirlpool</h3>
+                <p>Warm bubbling jets for muscle relaxation</p>
+            </div>
+            <div class="facility-item">
+                <div class="facility-icon">🧘</div>
+                <h3>Meditation Room</h3>
+                <p>Quiet sanctuary for mindfulness practice</p>
+            </div>
+            <div class="facility-item">
+                <div class="facility-icon">🍵</div>
+                <h3>Relaxation Lounge</h3>
+                <p>Serene space with herbal teas and refreshments</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="packages">
+            <h2>Spa Packages</h2>
+            <div class="package-grid">
+                <div class="package-card">
+                    <span class="package-badge">POPULAR</span>
+                    <h3>Half-Day Retreat</h3>
+                    <div class="price">$350</div>
+                    <ul>
+                        <li>60-min Swedish Massage</li>
+                        <li>60-min Facial of Choice</li>
+                        <li>Manicure & Pedicure</li>
+                        <li>Spa Lunch Included</li>
+                        <li>Access to All Facilities</li>
+                    </ul>
+                    <a href="#book" class="btn-book" style="display: block; text-align: center;">Book Package</a>
+                </div>
+
+                <div class="package-card">
+                    <span class="package-badge">BEST VALUE</span>
+                    <h3>Full-Day Bliss</h3>
+                    <div class="price">$650</div>
+                    <ul>
+                        <li>90-min Signature Massage</li>
+                        <li>90-min Luxury Facial</li>
+                        <li>Body Scrub & Wrap</li>
+                        <li>Complete Nail Service</li>
+                        <li>Spa Lunch & Refreshments</li>
+                        <li>Champagne & Treats</li>
+                    </ul>
+                    <a href="#book" class="btn-book" style="display: block; text-align: center;">Book Package</a>
+                </div>
+
+                <div class="package-card">
+                    <span class="package-badge">ROMANTIC</span>
+                    <h3>Couples Escape</h3>
+                    <div class="price">$750</div>
+                    <ul>
+                        <li>Dual 90-min Massages</li>
+                        <li>Private Suite Experience</li>
+                        <li>Champagne & Chocolates</li>
+                        <li>Rose Petal Bath</li>
+                        <li>Light Refreshments</li>
+                        <li>Keepsake Robes</li>
+                    </ul>
+                    <a href="#book" class="btn-book" style="display: block; text-align: center;">Book Package</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="book" style="background: white; padding: 5rem 2rem; text-align: center; margin: 5rem 2rem; border-radius: 20px; box-shadow: 0 10px 40px var(--shadow);">
+        <h2 style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;">Book Your Experience</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.8;">Hours: Daily 8:00 AM - 9:00 PM</p>
+        <p style="margin-bottom: 2rem;">Call (305) 555-0199 or dial 7 from your room</p>
+        <a href="hotel-website.html#contact" class="btn-book" style="padding: 1.2rem 3rem; font-size: 1.1rem;">Contact Spa</a>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 The Azure Pearl. All rights reserved.</p>
+    </footer>
+</body>
+</html>
