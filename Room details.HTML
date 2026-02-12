@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deluxe King Room - The Azure Pearl</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" 
+    rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a4d5e;
+            --secondary: #d4a574;
+            --accent: #89b0ae;
+            --dark: #0d1b2a;
+            --light: #f8f9fa;
+            --cream: #faf8f5;
+            --shadow: rgba(26, 77, 94, 0.1);
+            --shadow-lg: rgba(26, 77, 94, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            background: var(--cream);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(250, 248, 245, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(26, 77, 94, 0.1);
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+        .nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav a:hover {
+            color: var(--secondary);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .btn-book {
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        .btn-book:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-lg);
+        }
+
+        .room-hero {
+            margin-top: 80px;
+            height: 70vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel {
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.8rem;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: white;
+            width: 35px;
+            border-radius: 6px;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-nav:hover {
+            background: white;
+            box-shadow: 0 4px 15px var(--shadow-lg);
+        }
+
+        .carousel-nav.prev {
+            left: 2rem;
+        }
+
+        .carousel-nav.next {
+            right: 2rem;
+        }
+
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 2rem 0;
+            color: var(--dark);
+            opacity: 0.7;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--secondary);
+        }
+
+        .room-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+        }
+
+        .room-main {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px var(--shadow);
+        }
+
+        .room-title {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .room-subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .room-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+        }
+
+        .section-divider {
+            border: none;
+            border-top: 2px solid rgba(26, 77, 94, 0.1);
+            margin: 3rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--cream);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .amenity-item:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .amenity-icon {
+            font-size: 1.5rem;
+        }
+
+        .features-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .features-list li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .room-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .booking-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .price-display {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: var(--cream);
+            border-radius: 10px;
+        }
+
+        .price-amount {
+            font-size: 3.5rem;
+            color: var(--secondary);
+            font-weight: 700;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .price-period {
+            font-size: 1.1rem;
+            color: var(--dark);
+            opacity: 0.7;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(26, 77, 94, 0.2);
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+            background: var(--cream);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn-reserve {
+            width: 100%;
+            background: var(--secondary);
+            color: white;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        .btn-reserve:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-lg);
+        }
+
+        .info-card {
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .info-card h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-thumb {
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 15px var(--shadow);
+        }
+
+        .gallery-thumb:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 25px var(--shadow-lg);
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: space-around;
+            padding: 1.5rem 0;
+            margin-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .badge {
+            text-align: center;
+        }
+
+        .badge-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-text {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 1024px) {
+            .room-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .room-sidebar {
+                position: static;
+            }
+
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .room-title {
+                font-size: 2.5rem;
+            }
+
+            .room-main {
+                padding: 2rem;
+            }
+
+            .amenities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .carousel-nav.prev {
+                left: 1rem;
+            }
+
+            .carousel-nav.next {
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="hotel-website.html" class="logo">The Azure Pearl</a>
+            <nav class="nav">
+                <a href="Hotel website.HTML#home">Home</a>
+                <a href="Hotel website.HTML#rooms">Rooms & Suites</a>
+                <a href="Hotel website.HTML#amenities">Amenities</a>
+                <a href="Hotel website.HTML#gallery">Gallery</a>
+                <a href="Hotel website.HTML#offers">Offers</a>
+                <a href="Hotel website.HTML#about">About</a>
+                <a href="Hotel website.HTML#contact">Contact</a>
+            </nav>
+            <a href="#booking" class="btn-book">Book This Room</a>
+        </div>
+    </header>
+
+    <div class="room-hero">
+        <div class="carousel" id="carousel">
+            <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1920&q=80');"></div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1920&q=80');"></div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1920&q=80');"></div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=1920&q=80');"></div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1920&q=80');"></div>
+        </div>
+
+        <button class="carousel-nav prev" onclick="changeSlide(-1)">‹</button>
+        <button class="carousel-nav next" onclick="changeSlide(1)">›</button>
+
+        <div class="carousel-controls" id="carouselDots"></div>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="hotel-website.html">Home</a> / <a href="hotel-website.html#rooms">Rooms</a> / Deluxe King Room
+    </div>
+
+    <div class="room-content">
+        <div class="room-main">
+            <h1 class="room-title">Deluxe King Room</h1>
+            <p class="room-subtitle">450 SQ FT • CITY VIEW • KING BED</p>
+
+            <p class="room-description">
+                Immerse yourself in luxury with our Deluxe King Room, thoughtfully designed to provide the perfect 
+                blend of comfort and sophistication. Featuring a plush king-size bed with premium linens, modern 
+                amenities, and stunning city views, this room is your urban sanctuary. Whether you're here for 
+                business or pleasure, every detail has been carefully curated to ensure an exceptional stay.
+            </p>
+
+            <hr class="section-divider">
+
+            <h2 class="section-title">Room Amenities</h2>
+            <div class="amenities-grid">
+                <div class="amenity-item">
+                    <span class="amenity-icon">🛏️</span>
+                    <span>King Size Bed</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">📺</span>
+                    <span>55" Smart TV</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">☕</span>
+                    <span>Coffee Maker</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">🛁</span>
+                    <span>Luxury Bathroom</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">🌡️</span>
+                    <span>Climate Control</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">📶</span>
+                    <span>Free WiFi</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">🔒</span>
+                    <span>In-Room Safe</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">🍾</span>
+                    <span>Mini Bar</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">👔</span>
+                    <span>Iron & Board</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">📞</span>
+                    <span>Phone</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">🪟</span>
+                    <span>City Views</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="amenity-icon">💼</span>
+                    <span>Work Desk</span>
+                </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <h2 class="section-title">Room Features</h2>
+            <ul class="features-list">
+                <li>Premium Egyptian cotton linens</li>
+                <li>Blackout curtains</li>
+                <li>Pillow menu available</li>
+                <li>Rainfall shower</li>
+                <li>Designer toiletries</li>
+                <li>Fluffy bathrobes & slippers</li>
+                <li>Hair dryer</li>
+                <li>Direct dial telephone</li>
+                <li>Complimentary bottled water</li>
+                <li>24-hour room service</li>
+                <li>Daily housekeeping</li>
+                <li>Laptop-compatible safe</li>
+            </ul>
+
+            <hr class="section-divider">
+
+            <h2 class="section-title">Photo Gallery</h2>
+            <div class="photo-gallery">
+                <div class="gallery-thumb" style="background-image: url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=400&q=80');" onclick="showImage(0)"></div>
+                <div class="gallery-thumb" style="background-image: url('https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&q=80');" onclick="showImage(1)"></div>
+                <div class="gallery-thumb" style="background-image: url('https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=80');" onclick="showImage(2)"></div>
+                <div class="gallery-thumb" style="background-image: url('https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80');" onclick="showImage(3)"></div>
+                <div class="gallery-thumb" style="background-image: url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80');" onclick="showImage(4)"></div>
+                <div class="gallery-thumb" style="background-image: url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80');" onclick="showImage(5)"></div>
+            </div>
+        </div>
+
+        <aside class="room-sidebar" id="booking">
+            <div class="booking-card">
+                <div class="price-display">
+                    <div class="price-amount">$299</div>
+                    <div class="price-period">per night</div>
+                </div>
+
+                <form onsubmit="handleReservation(event)">
+                    <div class="form-group">
+                        <label>Check In</label>
+                        <input type="date" id="checkIn" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Check Out</label>
+                        <input type="date" id="checkOut" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Guests</label>
+                        <select required>
+                            <option value="1">1 Guest</option>
+                            <option value="2" selected>2 Guests</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-reserve">Reserve Now</button>
+                </form>
+            </div>
+
+            <div class="info-card">
+                <h3>Room Information</h3>
+                <div class="info-item">
+                    <span>Max Occupancy</span>
+                    <strong>2 Adults</strong>
+                </div>
+                <div class="info-item">
+                    <span>Room Size</span>
+                    <strong>450 sq ft</strong>
+                </div>
+                <div class="info-item">
+                    <span>Bed Type</span>
+                    <strong>1 King Bed</strong>
+                </div>
+                <div class="info-item">
+                    <span>View</span>
+                    <strong>City View</strong>
+                </div>
+
+                <div class="trust-badges">
+                    <div class="badge">
+                        <div class="badge-icon">🔒</div>
+                        <div class="badge-text">Secure Booking</div>
+                    </div>
+                    <div class="badge">
+                        <div class="badge-icon">✓</div>
+                        <div class="badge-text">Best Rate</div>
+                    </div>
+                    <div class="badge">
+                        <div class="badge-icon">🎁</div>
+                        <div class="badge-text">Free Cancellation</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // Carousel functionality
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dotsContainer = document.getElementById('carouselDots');
+
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'carousel-dot';
+            if (index === 0) dot.classList.add('active');
+            dot.onclick = () => goToSlide(index);
+            dotsContainer.appendChild(dot);
+        });
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            document.querySelectorAll('.carousel-dot').forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            document.querySelectorAll('.carousel-dot')[index].classList.add('active');
+            currentSlideIndex = index;
+        }
+
+        function changeSlide(direction) {
+            let newIndex = currentSlideIndex + direction;
+            if (newIndex >= slides.length) newIndex = 0;
+            if (newIndex < 0) newIndex = slides.length - 1;
+            showSlide(newIndex);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+        }
+
+        function showImage(index) {
+            goToSlide(index);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Auto-advance slides
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        // Set default dates
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        
+        document.getElementById('checkIn').valueAsDate = today;
+        document.getElementById('checkOut').valueAsDate = tomorrow;
+
+        // Handle reservation
+        function handleReservation(event) {
+            event.preventDefault();
+            alert('Thank you for your reservation! Our team will contact you shortly to confirm your booking.');
+        }
+    </script>
+</body>
+</html>
